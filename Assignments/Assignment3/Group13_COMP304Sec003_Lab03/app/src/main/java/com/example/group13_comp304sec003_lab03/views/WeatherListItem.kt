@@ -46,7 +46,7 @@ fun WeatherListItem(weather: WeatherResponse,
                 .fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            // Weather icon based on condition
+
             val icon = getWeatherIcon(weather.weather[0].main)
             Image(
                 painter = painterResource(id = icon),
@@ -56,13 +56,14 @@ fun WeatherListItem(weather: WeatherResponse,
 
             Spacer(modifier = Modifier.width(8.dp))
 
-            // Display city name, temperature, and condition
+
             Column(modifier = Modifier.weight(1f)) {
                 Text(text = weather.name)
-                Text(text = "${weather.main.temp}°C - ${weather.weather[0].main}")
+                Text(text = "${(weather.main.temp - 273.15).toInt()}°C - ${weather.weather[0].main}")
+
             }
 
-            // Favorite icon
+
             Icon(
                 modifier = Modifier
                     .clickable {

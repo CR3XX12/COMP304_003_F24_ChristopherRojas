@@ -22,33 +22,33 @@ import com.example.group13_comp304sec003_lab03.data.WeatherResponse
 
 @Composable
 fun WeatherDetailsScreen(weatherResponse: WeatherResponse, onBackPressed: () -> Unit) {
-    Row (
-         modifier = Modifier
-             .fillMaxWidth()
-             .padding(16.dp),
-        horizontalArrangement = Arrangement.Center,
-        verticalAlignment = Alignment.CenterVertically
-    ){
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
         val icon = getWeatherIcon(weatherResponse.weather[0].main)
-        Image(painter = painterResource(id = icon), contentDescription = "Weather Icon")
+        Image(
+            painter = painterResource(id = icon),
+            contentDescription = "Weather Icon",
+            modifier = Modifier.size(64.dp)
+        )
 
-        Spacer(modifier = Modifier.width(8.dp))
+        Spacer(modifier = Modifier.height(8.dp))
 
-        Column {
-
-            Text(text = "Location: ${weatherResponse.name}")
-            Text(text = "Condition: ${weatherResponse.weather[0].main}")
-            Text(text = "Temperature: ${weatherResponse.main.temp}°C")
-
-        }
-
+        Text(text = "Location: ${weatherResponse.name}")
+        Text(text = "Condition: ${weatherResponse.weather[0].main}")
+        Text(text = "Temperature: ${(weatherResponse.main.temp - 273.15).toInt()}°C") // Convert to Celsius
     }
 }
-    fun getWeatherIcon(condition: String): Int {
-        return when (condition) {
+
+fun getWeatherIcon(condition: String): Int {
+    return when (condition) {
         "Clear" -> R.drawable.sunny_icon
         "Clouds" -> R.drawable.cloudy_icon
         "Rain" -> R.drawable.rain_icon
         else -> R.drawable.default_weather_icon
-        }
     }
+}
