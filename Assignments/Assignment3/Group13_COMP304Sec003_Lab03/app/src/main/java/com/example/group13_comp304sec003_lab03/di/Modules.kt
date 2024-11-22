@@ -1,6 +1,7 @@
 package com.example.group13_comp304sec003_lab03.di
 
 import androidx.room.Room
+import androidx.room.RoomDatabase
 import com.example.group13_comp304sec003_lab03.data.WeatherDatabase
 import com.example.group13_comp304sec003_lab03.data.WeathersAPI
 import com.example.group13_comp304sec003_lab03.data.WeathersRepository
@@ -33,7 +34,7 @@ val appModules = module {
             androidContext(),
             WeatherDatabase::class.java,
             "weather-database"
-        ).build()
+        ).setJournalMode(RoomDatabase.JournalMode.TRUNCATE).build()
     }
     single { get<WeatherDatabase>().weatherDao()}
 }
